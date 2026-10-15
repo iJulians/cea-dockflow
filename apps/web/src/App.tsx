@@ -13,7 +13,7 @@ export default function App() {
         <CardContent className="space-y-4">
           <Badge>Operacional</Badge>
 
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground bg-amber-300">
             Sistema de gerenciamento de docas.
           </p>
 
