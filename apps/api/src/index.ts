@@ -2,14 +2,16 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { zValidator } from '@hono/zod-validator'
 
-import { veiculoSchema } from '@cea-dockflow/shared'
+import { Veiculos } from '@cea-dockflow/shared'
 import { createDb, veiculos } from '@cea-dockflow/db'
 
-type Bidings = {
+import packageJson from '../package.json'
+
+type Bindings = {
   DATABASE_URL: string
 }
 
-const app = new Hono<{Bindings: Bidings}>()
+const app = new Hono<{Bindings: Bindings}>()
 
 app.use(
   '/api/*',
@@ -22,12 +24,15 @@ app.use(
 );
 
 app.get('/', (c) => {
-  return c.text('Hello Hono!')
+  return c.json({
+    name: packageJson.name,
+    version: packageJson.version,
+  })
 })
 
 app.post(
   '/veiculos',
-  zValidator('json', veiculoSchema),
+  zValidator('json', Veiculos.Create.inputSchema),
   async (c) => {
     const data = c.req.valid('json')
 
