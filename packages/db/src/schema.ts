@@ -1,15 +1,20 @@
-import {
-    pgTable,
-    uuid,
-    varchar,
-    timestamp,
-} from "drizzle-orm/pg-core";
+export * from './schema/usuario';
+export * from './schema/role';
+export * from './schema/permission';
+export * from './schema/role-permission';
+export * from './schema/usuario-role';
 
-export const veiculos = pgTable("veiculos", {
-    id: uuid("id").primaryKey().defaultRandom(),
-    placa: varchar("placa", { length: 7 }).notNull().unique(),
-    modelo: varchar("modelo", { length: 100 }).notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export * from './schema/motorista';
+export * from './schema/transportadora';
+export * from './schema/cd';
+export * from './schema/veiculo';
 
+export * from './schema/viagem';
+export * from './schema/entrega';
+export * from './schema/evento-entrega';
+
+export * from './schema/ocorrencia';
+export * from './schema/ocorrencia-item';
+export * from './schema/followup';
+
+export * from './schema/helpers';
