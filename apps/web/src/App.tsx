@@ -1,25 +1,68 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
+
+import { AppLayout } from '@/components/layout/app-layout';
+import { DashboardPage } from '@/features/dashboard/dashboard-page';
+import { ViagensPage } from '@/features/viagens/viagens-page';
+import { ViagemDetailsPage } from '@/features/viagens/viagem-details-page';
+import { EntregasPage } from '@/features/entregas/entregas-page';
+import { EntregaDetailsPage } from '@/features/entregas/entrega-details-page';
+import { OcorrenciasPage } from '@/features/ocorrencias/ocorrencias-page';
+import { OcorrenciaDetailsPage } from '@/features/ocorrencias/ocorrencia-details-page';
+import { CadastrosPage } from '@/features/cadastros/cadastros-page';
+
+// function PlaceholderPage({ title }: { title: string }) {
+//   return (
+//     <div>
+//       <h1 className="text-3xl font-bold">{title}</h1>
+//       <p className="text-muted-foreground">
+//         Módulo em desenvolvimento.
+//       </p>
+//     </div>
+//   );
+// }
 
 export default function App() {
   return (
-    <main className="min-h-screen bg-background p-8">
-      <Card className="mx-auto max-w-md">
-        <CardHeader>
-          <CardTitle>CEA DockFlow</CardTitle>
-        </CardHeader>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="viagens" element={<ViagensPage />} />
+          <Route path="viagens/:id" element={<ViagemDetailsPage />} />
+          <Route path="entregas" element={<EntregasPage />} />
+          <Route path="entregas/:id" element={<EntregaDetailsPage />} />
+          <Route path="ocorrencias" element={<OcorrenciasPage />} />
+          <Route
+            path="ocorrencias/:id"
+            element={<OcorrenciaDetailsPage />}
+          />
+          <Route
+            path="motoristas"
+            element={<CadastrosPage tipo="motoristas" />}
+          />
 
-        <CardContent className="space-y-4">
-          <Badge>Operacional</Badge>
+          <Route
+            path="veiculos"
+            element={<CadastrosPage tipo="veiculos" />}
+          />
 
-          <p className="text-sm text-muted-foreground bg-amber-300">
-            Sistema de gerenciamento de docas.
-          </p>
+          <Route
+            path="transportadoras"
+            element={<CadastrosPage tipo="transportadoras" />}
+          />
 
-          <Button>Nova movimentação</Button>
-        </CardContent>
-      </Card>
-    </main>
+          <Route
+            path="cds"
+            element={<CadastrosPage tipo="cds" />}
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
